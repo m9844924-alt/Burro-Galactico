@@ -1,0 +1,1439 @@
+{
+  "constellations": [
+    {
+      "name": "Andromeda Nebula",
+      "starts": [
+        {
+          "id": 1,
+          "label": "Alpheratz",
+          "linkedTo": [
+            {
+              "starId": 2,
+              "distance": 145
+            },
+            {
+              "starId": 3,
+              "distance": 98
+            },
+            {
+              "starId": 8,
+              "distance": 167
+            }
+          ],
+          "radius": 0.5,
+          "timeToEat": 4,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 10.0,
+            "y": 10.0
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 5
+        },
+        {
+          "id": 2,
+          "label": "Mirach",
+          "linkedTo": [
+            {
+              "starId": 1,
+              "distance": 145
+            },
+            {
+              "starId": 4,
+              "distance": 78
+            },
+            {
+              "starId": 5,
+              "distance": 123
+            }
+          ],
+          "radius": 0.8,
+          "timeToEat": 3,
+          "amountOfEnergy": 4,
+          "coordenates": {
+            "x": 29.9,
+            "y": 19.8
+          },
+          "hypergiant": true,
+          "healthImpact": -0.01,
+          "lifespanImpact": -3
+        },
+        {
+          "id": 3,
+          "label": "Almach",
+          "linkedTo": [
+            {
+              "starId": 1,
+              "distance": 98
+            },
+            {
+              "starId": 6,
+              "distance": 156
+            },
+            {
+              "starId": 7,
+              "distance": 89
+            }
+          ],
+          "radius": 0.4,
+          "timeToEat": 5,
+          "amountOfEnergy": 1,
+          "coordenates": {
+            "x": 21.4,
+            "y": 32.8
+          },
+          "hypergiant": false,
+          "healthImpact": 0.03,
+          "lifespanImpact": 8
+        },
+        {
+          "id": 4,
+          "label": "Delta And",
+          "linkedTo": [
+            {
+              "starId": 2,
+              "distance": 78
+            },
+            {
+              "starId": 5,
+              "distance": 134
+            },
+            {
+              "starId": 9,
+              "distance": 201
+            }
+          ],
+          "radius": 0.6,
+          "timeToEat": 3,
+          "amountOfEnergy": 3,
+          "coordenates": {
+            "x": 47.0,
+            "y": 29.6
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 4
+        },
+        {
+          "id": 5,
+          "label": "Epsilon And",
+          "linkedTo": [
+            {
+              "starId": 2,
+              "distance": 123
+            },
+            {
+              "starId": 4,
+              "distance": 134
+            },
+            {
+              "starId": 10,
+              "distance": 167
+            }
+          ],
+          "radius": 0.7,
+          "timeToEat": 2,
+          "amountOfEnergy": 5,
+          "coordenates": {
+            "x": 58.4,
+            "y": 39.3
+          },
+          "hypergiant": true,
+          "healthImpact": -0.02,
+          "lifespanImpact": -5
+        },
+        {
+          "id": 6,
+          "label": "Zeta And",
+          "linkedTo": [
+            {
+              "starId": 3,
+              "distance": 156
+            },
+            {
+              "starId": 7,
+              "distance": 92
+            },
+            {
+              "starId": 11,
+              "distance": 178
+            }
+          ],
+          "radius": 0.5,
+          "timeToEat": 4,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 15.7,
+            "y": 52.4
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 6
+        },
+        {
+          "id": 7,
+          "label": "Eta And",
+          "linkedTo": [
+            {
+              "starId": 3,
+              "distance": 89
+            },
+            {
+              "starId": 6,
+              "distance": 92
+            },
+            {
+              "starId": 8,
+              "distance": 145
+            }
+          ],
+          "radius": 0.3,
+          "timeToEat": 6,
+          "amountOfEnergy": 1,
+          "coordenates": {
+            "x": 27.1,
+            "y": 58.9
+          },
+          "hypergiant": false,
+          "healthImpact": 0.04,
+          "lifespanImpact": 10
+        },
+        {
+          "id": 8,
+          "label": "Theta And",
+          "linkedTo": [
+            {
+              "starId": 1,
+              "distance": 167
+            },
+            {
+              "starId": 7,
+              "distance": 145
+            },
+            {
+              "starId": 9,
+              "distance": 112
+            }
+          ],
+          "radius": 0.4,
+          "timeToEat": 5,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 41.3,
+            "y": 62.1
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 5
+        },
+        {
+          "id": 9,
+          "label": "Iota And",
+          "linkedTo": [
+            {
+              "starId": 4,
+              "distance": 201
+            },
+            {
+              "starId": 8,
+              "distance": 112
+            },
+            {
+              "starId": 10,
+              "distance": 95
+            }
+          ],
+          "radius": 0.6,
+          "timeToEat": 3,
+          "amountOfEnergy": 3,
+          "coordenates": {
+            "x": 64.0,
+            "y": 58.9
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 3
+        },
+        {
+          "id": 10,
+          "label": "Kappa And",
+          "linkedTo": [
+            {
+              "starId": 5,
+              "distance": 167
+            },
+            {
+              "starId": 9,
+              "distance": 95
+            }
+          ],
+          "radius": 0.5,
+          "timeToEat": 4,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 75.4,
+            "y": 49.1
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 4
+        }
+      ]
+    },
+    {
+      "name": "Orion's Belt",
+      "starts": [
+        {
+          "id": 11,
+          "label": "Betelgeuse",
+          "linkedTo": [
+            {
+              "starId": 12,
+              "distance": 189
+            },
+            {
+              "starId": 15,
+              "distance": 234
+            },
+            {
+              "starId": 18,
+              "distance": 156
+            }
+          ],
+          "radius": 1.2,
+          "timeToEat": 2,
+          "amountOfEnergy": 8,
+          "coordenates": {
+            "x": 95.3,
+            "y": 10.0
+          },
+          "hypergiant": true,
+          "healthImpact": -0.03,
+          "lifespanImpact": -8
+        },
+        {
+          "id": 12,
+          "label": "Rigel",
+          "linkedTo": [
+            {
+              "starId": 11,
+              "distance": 189
+            },
+            {
+              "starId": 13,
+              "distance": 145
+            },
+            {
+              "starId": 16,
+              "distance": 178
+            }
+          ],
+          "radius": 1.0,
+          "timeToEat": 2,
+          "amountOfEnergy": 7,
+          "coordenates": {
+            "x": 115.2,
+            "y": 32.8
+          },
+          "hypergiant": true,
+          "healthImpact": -0.02,
+          "lifespanImpact": -6
+        },
+        {
+          "id": 13,
+          "label": "Bellatrix",
+          "linkedTo": [
+            {
+              "starId": 12,
+              "distance": 145
+            },
+            {
+              "starId": 14,
+              "distance": 123
+            },
+            {
+              "starId": 17,
+              "distance": 167
+            }
+          ],
+          "radius": 0.6,
+          "timeToEat": 3,
+          "amountOfEnergy": 3,
+          "coordenates": {
+            "x": 132.3,
+            "y": 45.9
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 4
+        },
+        {
+          "id": 14,
+          "label": "Alnitak",
+          "linkedTo": [
+            {
+              "starId": 13,
+              "distance": 123
+            },
+            {
+              "starId": 15,
+              "distance": 98
+            },
+            {
+              "starId": 19,
+              "distance": 201
+            }
+          ],
+          "radius": 0.7,
+          "timeToEat": 3,
+          "amountOfEnergy": 4,
+          "coordenates": {
+            "x": 103.9,
+            "y": 58.9
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 5
+        },
+        {
+          "id": 15,
+          "label": "Alnilam",
+          "linkedTo": [
+            {
+              "starId": 11,
+              "distance": 234
+            },
+            {
+              "starId": 14,
+              "distance": 98
+            },
+            {
+              "starId": 16,
+              "distance": 112
+            }
+          ],
+          "radius": 0.8,
+          "timeToEat": 2,
+          "amountOfEnergy": 5,
+          "coordenates": {
+            "x": 118.1,
+            "y": 62.1
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 3
+        },
+        {
+          "id": 16,
+          "label": "Mintaka",
+          "linkedTo": [
+            {
+              "starId": 12,
+              "distance": 178
+            },
+            {
+              "starId": 15,
+              "distance": 112
+            },
+            {
+              "starId": 17,
+              "distance": 134
+            }
+          ],
+          "radius": 0.7,
+          "timeToEat": 3,
+          "amountOfEnergy": 4,
+          "coordenates": {
+            "x": 135.2,
+            "y": 65.4
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 6
+        },
+        {
+          "id": 17,
+          "label": "Saiph",
+          "linkedTo": [
+            {
+              "starId": 13,
+              "distance": 167
+            },
+            {
+              "starId": 16,
+              "distance": 134
+            },
+            {
+              "starId": 18,
+              "distance": 189
+            }
+          ],
+          "radius": 0.6,
+          "timeToEat": 4,
+          "amountOfEnergy": 3,
+          "coordenates": {
+            "x": 143.7,
+            "y": 52.4
+          },
+          "hypergiant": false,
+          "healthImpact": 0.03,
+          "lifespanImpact": 7
+        },
+        {
+          "id": 18,
+          "label": "Meissa",
+          "linkedTo": [
+            {
+              "starId": 11,
+              "distance": 156
+            },
+            {
+              "starId": 17,
+              "distance": 189
+            },
+            {
+              "starId": 19,
+              "distance": 145
+            }
+          ],
+          "radius": 0.5,
+          "timeToEat": 4,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 101.0,
+            "y": 23.0
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 5
+        },
+        {
+          "id": 19,
+          "label": "Hatysa",
+          "linkedTo": [
+            {
+              "starId": 14,
+              "distance": 201
+            },
+            {
+              "starId": 18,
+              "distance": 145
+            }
+          ],
+          "radius": 0.4,
+          "timeToEat": 5,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 92.5,
+            "y": 39.3
+          },
+          "hypergiant": false,
+          "healthImpact": 0.03,
+          "lifespanImpact": 8
+        }
+      ]
+    },
+    {
+      "name": "Cassiopeia Crown",
+      "starts": [
+        {
+          "id": 20,
+          "label": "Schedar",
+          "linkedTo": [
+            {
+              "starId": 21,
+              "distance": 167
+            },
+            {
+              "starId": 24,
+              "distance": 198
+            },
+            {
+              "starId": 27,
+              "distance": 145
+            }
+          ],
+          "radius": 0.9,
+          "timeToEat": 2,
+          "amountOfEnergy": 6,
+          "coordenates": {
+            "x": 10.0,
+            "y": 98.0
+          },
+          "hypergiant": true,
+          "healthImpact": -0.02,
+          "lifespanImpact": -5
+        },
+        {
+          "id": 21,
+          "label": "Caph",
+          "linkedTo": [
+            {
+              "starId": 20,
+              "distance": 167
+            },
+            {
+              "starId": 22,
+              "distance": 134
+            },
+            {
+              "starId": 25,
+              "distance": 178
+            }
+          ],
+          "radius": 0.6,
+          "timeToEat": 3,
+          "amountOfEnergy": 3,
+          "coordenates": {
+            "x": 29.9,
+            "y": 107.8
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 4
+        },
+        {
+          "id": 22,
+          "label": "Navi",
+          "linkedTo": [
+            {
+              "starId": 21,
+              "distance": 134
+            },
+            {
+              "starId": 23,
+              "distance": 123
+            },
+            {
+              "starId": 26,
+              "distance": 156
+            }
+          ],
+          "radius": 0.7,
+          "timeToEat": 3,
+          "amountOfEnergy": 4,
+          "coordenates": {
+            "x": 47.0,
+            "y": 114.3
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 5
+        },
+        {
+          "id": 23,
+          "label": "Ruchbah",
+          "linkedTo": [
+            {
+              "starId": 22,
+              "distance": 123
+            },
+            {
+              "starId": 24,
+              "distance": 145
+            },
+            {
+              "starId": 28,
+              "distance": 189
+            }
+          ],
+          "radius": 0.5,
+          "timeToEat": 4,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 64.0,
+            "y": 117.6
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 6
+        },
+        {
+          "id": 24,
+          "label": "Segin",
+          "linkedTo": [
+            {
+              "starId": 20,
+              "distance": 198
+            },
+            {
+              "starId": 23,
+              "distance": 145
+            },
+            {
+              "starId": 29,
+              "distance": 167
+            }
+          ],
+          "radius": 0.4,
+          "timeToEat": 5,
+          "amountOfEnergy": 1,
+          "coordenates": {
+            "x": 78.3,
+            "y": 111.0
+          },
+          "hypergiant": false,
+          "healthImpact": 0.03,
+          "lifespanImpact": 7
+        },
+        {
+          "id": 25,
+          "label": "Achird",
+          "linkedTo": [
+            {
+              "starId": 21,
+              "distance": 178
+            },
+            {
+              "starId": 26,
+              "distance": 112
+            },
+            {
+              "starId": 30,
+              "distance": 201
+            }
+          ],
+          "radius": 0.6,
+          "timeToEat": 3,
+          "amountOfEnergy": 3,
+          "coordenates": {
+            "x": 35.6,
+            "y": 130.6
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 3
+        },
+        {
+          "id": 26,
+          "label": "Marfak",
+          "linkedTo": [
+            {
+              "starId": 22,
+              "distance": 156
+            },
+            {
+              "starId": 25,
+              "distance": 112
+            },
+            {
+              "starId": 27,
+              "distance": 145
+            }
+          ],
+          "radius": 0.5,
+          "timeToEat": 4,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 52.7,
+            "y": 137.1
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 5
+        },
+        {
+          "id": 27,
+          "label": "Fulu",
+          "linkedTo": [
+            {
+              "starId": 20,
+              "distance": 145
+            },
+            {
+              "starId": 26,
+              "distance": 145
+            },
+            {
+              "starId": 28,
+              "distance": 134
+            }
+          ],
+          "radius": 0.7,
+          "timeToEat": 3,
+          "amountOfEnergy": 4,
+          "coordenates": {
+            "x": 21.4,
+            "y": 120.8
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 4
+        },
+        {
+          "id": 28,
+          "label": "Kappa Cas",
+          "linkedTo": [
+            {
+              "starId": 23,
+              "distance": 189
+            },
+            {
+              "starId": 27,
+              "distance": 134
+            },
+            {
+              "starId": 29,
+              "distance": 123
+            }
+          ],
+          "radius": 0.8,
+          "timeToEat": 2,
+          "amountOfEnergy": 5,
+          "coordenates": {
+            "x": 69.7,
+            "y": 130.6
+          },
+          "hypergiant": true,
+          "healthImpact": -0.01,
+          "lifespanImpact": -4
+        },
+        {
+          "id": 29,
+          "label": "Mu Cas",
+          "linkedTo": [
+            {
+              "starId": 24,
+              "distance": 167
+            },
+            {
+              "starId": 28,
+              "distance": 123
+            }
+          ],
+          "radius": 0.6,
+          "timeToEat": 3,
+          "amountOfEnergy": 3,
+          "coordenates": {
+            "x": 86.8,
+            "y": 124.1
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 5
+        },
+        {
+          "id": 30,
+          "label": "Nu Cas",
+          "linkedTo": [
+            {
+              "starId": 25,
+              "distance": 201
+            }
+          ],
+          "radius": 0.4,
+          "timeToEat": 5,
+          "amountOfEnergy": 1,
+          "coordenates": {
+            "x": 24.2,
+            "y": 146.9
+          },
+          "hypergiant": false,
+          "healthImpact": 0.04,
+          "lifespanImpact": 9
+        }
+      ]
+    },
+    {
+      "name": "Ursa Major Circuit",
+      "starts": [
+        {
+          "id": 31,
+          "label": "Dubhe",
+          "linkedTo": [
+            {
+              "starId": 32,
+              "distance": 156
+            },
+            {
+              "starId": 35,
+              "distance": 189
+            },
+            {
+              "starId": 38,
+              "distance": 212
+            }
+          ],
+          "radius": 0.9,
+          "timeToEat": 2,
+          "amountOfEnergy": 6,
+          "coordenates": {
+            "x": 103.9,
+            "y": 98.0
+          },
+          "hypergiant": true,
+          "healthImpact": -0.02,
+          "lifespanImpact": -6
+        },
+        {
+          "id": 32,
+          "label": "Merak",
+          "linkedTo": [
+            {
+              "starId": 31,
+              "distance": 156
+            },
+            {
+              "starId": 33,
+              "distance": 134
+            },
+            {
+              "starId": 36,
+              "distance": 167
+            }
+          ],
+          "radius": 0.7,
+          "timeToEat": 3,
+          "amountOfEnergy": 4,
+          "coordenates": {
+            "x": 123.8,
+            "y": 107.8
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 4
+        },
+        {
+          "id": 33,
+          "label": "Phecda",
+          "linkedTo": [
+            {
+              "starId": 32,
+              "distance": 134
+            },
+            {
+              "starId": 34,
+              "distance": 123
+            },
+            {
+              "starId": 37,
+              "distance": 178
+            }
+          ],
+          "radius": 0.6,
+          "timeToEat": 3,
+          "amountOfEnergy": 3,
+          "coordenates": {
+            "x": 140.8,
+            "y": 114.3
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 5
+        },
+        {
+          "id": 34,
+          "label": "Megrez",
+          "linkedTo": [
+            {
+              "starId": 33,
+              "distance": 123
+            },
+            {
+              "starId": 35,
+              "distance": 145
+            },
+            {
+              "starId": 39,
+              "distance": 198
+            }
+          ],
+          "radius": 0.5,
+          "timeToEat": 4,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 155.1,
+            "y": 120.8
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 6
+        },
+        {
+          "id": 35,
+          "label": "Alioth",
+          "linkedTo": [
+            {
+              "starId": 31,
+              "distance": 189
+            },
+            {
+              "starId": 34,
+              "distance": 145
+            },
+            {
+              "starId": 36,
+              "distance": 156
+            },
+            {
+              "starId": 40,
+              "distance": 167
+            }
+          ],
+          "radius": 0.8,
+          "timeToEat": 2,
+          "amountOfEnergy": 5,
+          "coordenates": {
+            "x": 132.3,
+            "y": 130.6
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 3
+        },
+        {
+          "id": 36,
+          "label": "Mizar",
+          "linkedTo": [
+            {
+              "starId": 32,
+              "distance": 167
+            },
+            {
+              "starId": 35,
+              "distance": 156
+            },
+            {
+              "starId": 37,
+              "distance": 134
+            }
+          ],
+          "radius": 1.0,
+          "timeToEat": 2,
+          "amountOfEnergy": 7,
+          "coordenates": {
+            "x": 115.2,
+            "y": 140.4
+          },
+          "hypergiant": true,
+          "healthImpact": -0.03,
+          "lifespanImpact": -7
+        },
+        {
+          "id": 37,
+          "label": "Alkaid",
+          "linkedTo": [
+            {
+              "starId": 33,
+              "distance": 178
+            },
+            {
+              "starId": 36,
+              "distance": 134
+            },
+            {
+              "starId": 38,
+              "distance": 189
+            }
+          ],
+          "radius": 0.7,
+          "timeToEat": 3,
+          "amountOfEnergy": 4,
+          "coordenates": {
+            "x": 149.4,
+            "y": 143.6
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 5
+        },
+        {
+          "id": 38,
+          "label": "Talitha",
+          "linkedTo": [
+            {
+              "starId": 31,
+              "distance": 212
+            },
+            {
+              "starId": 37,
+              "distance": 189
+            },
+            {
+              "starId": 39,
+              "distance": 145
+            }
+          ],
+          "radius": 0.5,
+          "timeToEat": 4,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 95.3,
+            "y": 120.8
+          },
+          "hypergiant": false,
+          "healthImpact": 0.03,
+          "lifespanImpact": 7
+        },
+        {
+          "id": 39,
+          "label": "Tania Borealis",
+          "linkedTo": [
+            {
+              "starId": 34,
+              "distance": 198
+            },
+            {
+              "starId": 38,
+              "distance": 145
+            },
+            {
+              "starId": 40,
+              "distance": 123
+            }
+          ],
+          "radius": 0.6,
+          "timeToEat": 3,
+          "amountOfEnergy": 3,
+          "coordenates": {
+            "x": 163.6,
+            "y": 133.9
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 4
+        },
+        {
+          "id": 40,
+          "label": "Muscida",
+          "linkedTo": [
+            {
+              "starId": 35,
+              "distance": 167
+            },
+            {
+              "starId": 39,
+              "distance": 123
+            }
+          ],
+          "radius": 0.4,
+          "timeToEat": 5,
+          "amountOfEnergy": 1,
+          "coordenates": {
+            "x": 143.7,
+            "y": 156.7
+          },
+          "hypergiant": false,
+          "healthImpact": 0.03,
+          "lifespanImpact": 8
+        }
+      ]
+    },
+    {
+      "name": "Draco Serpent",
+      "starts": [
+        {
+          "id": 41,
+          "label": "Thuban",
+          "linkedTo": [
+            {
+              "starId": 42,
+              "distance": 178
+            },
+            {
+              "starId": 45,
+              "distance": 201
+            },
+            {
+              "starId": 48,
+              "distance": 167
+            }
+          ],
+          "radius": 0.8,
+          "timeToEat": 2,
+          "amountOfEnergy": 5,
+          "coordenates": {
+            "x": 177.8,
+            "y": 10.0
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 3
+        },
+        {
+          "id": 42,
+          "label": "Rastaban",
+          "linkedTo": [
+            {
+              "starId": 41,
+              "distance": 178
+            },
+            {
+              "starId": 43,
+              "distance": 145
+            },
+            {
+              "starId": 46,
+              "distance": 189
+            }
+          ],
+          "radius": 0.7,
+          "timeToEat": 3,
+          "amountOfEnergy": 4,
+          "coordenates": {
+            "x": 194.9,
+            "y": 23.0
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 5
+        },
+        {
+          "id": 43,
+          "label": "Eltanin",
+          "linkedTo": [
+            {
+              "starId": 42,
+              "distance": 145
+            },
+            {
+              "starId": 44,
+              "distance": 134
+            },
+            {
+              "starId": 47,
+              "distance": 156
+            }
+          ],
+          "radius": 1.1,
+          "timeToEat": 2,
+          "amountOfEnergy": 8,
+          "coordenates": {
+            "x": 209.1,
+            "y": 36.1
+          },
+          "hypergiant": true,
+          "healthImpact": -0.03,
+          "lifespanImpact": -8
+        },
+        {
+          "id": 44,
+          "label": "Grumium",
+          "linkedTo": [
+            {
+              "starId": 43,
+              "distance": 134
+            },
+            {
+              "starId": 45,
+              "distance": 123
+            },
+            {
+              "starId": 49,
+              "distance": 198
+            }
+          ],
+          "radius": 0.6,
+          "timeToEat": 3,
+          "amountOfEnergy": 3,
+          "coordenates": {
+            "x": 220.5,
+            "y": 49.1
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 4
+        },
+        {
+          "id": 45,
+          "label": "Edasich",
+          "linkedTo": [
+            {
+              "starId": 41,
+              "distance": 201
+            },
+            {
+              "starId": 44,
+              "distance": 123
+            },
+            {
+              "starId": 46,
+              "distance": 167
+            },
+            {
+              "starId": 50,
+              "distance": 178
+            }
+          ],
+          "radius": 0.7,
+          "timeToEat": 3,
+          "amountOfEnergy": 4,
+          "coordenates": {
+            "x": 200.6,
+            "y": 58.9
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 5
+        },
+        {
+          "id": 46,
+          "label": "Aldhibah",
+          "linkedTo": [
+            {
+              "starId": 42,
+              "distance": 189
+            },
+            {
+              "starId": 45,
+              "distance": 167
+            },
+            {
+              "starId": 47,
+              "distance": 145
+            }
+          ],
+          "radius": 0.5,
+          "timeToEat": 4,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 189.2,
+            "y": 71.9
+          },
+          "hypergiant": false,
+          "healthImpact": 0.02,
+          "lifespanImpact": 6
+        },
+        {
+          "id": 47,
+          "label": "Altais",
+          "linkedTo": [
+            {
+              "starId": 43,
+              "distance": 156
+            },
+            {
+              "starId": 46,
+              "distance": 145
+            },
+            {
+              "starId": 48,
+              "distance": 178
+            }
+          ],
+          "radius": 0.9,
+          "timeToEat": 2,
+          "amountOfEnergy": 6,
+          "coordenates": {
+            "x": 206.3,
+            "y": 81.7
+          },
+          "hypergiant": true,
+          "healthImpact": -0.02,
+          "lifespanImpact": -6
+        },
+        {
+          "id": 48,
+          "label": "Tyl",
+          "linkedTo": [
+            {
+              "starId": 41,
+              "distance": 167
+            },
+            {
+              "starId": 47,
+              "distance": 178
+            },
+            {
+              "starId": 49,
+              "distance": 134
+            }
+          ],
+          "radius": 0.6,
+          "timeToEat": 3,
+          "amountOfEnergy": 3,
+          "coordenates": {
+            "x": 183.5,
+            "y": 39.3
+          },
+          "hypergiant": false,
+          "healthImpact": 0.01,
+          "lifespanImpact": 4
+        },
+        {
+          "id": 49,
+          "label": "Kuma",
+          "linkedTo": [
+            {
+              "starId": 44,
+              "distance": 198
+            },
+            {
+              "starId": 48,
+              "distance": 134
+            },
+            {
+              "starId": 50,
+              "distance": 156
+            }
+          ],
+          "radius": 0.5,
+          "timeToEat": 4,
+          "amountOfEnergy": 2,
+          "coordenates": {
+            "x": 223.3,
+            "y": 62.1
+          },
+          "hypergiant": false,
+          "healthImpact": 0.03,
+          "lifespanImpact": 7
+        },
+        {
+          "id": 50,
+          "label": "Giausar",
+          "linkedTo": [
+            {
+              "starId": 45,
+              "distance": 178
+            },
+            {
+              "starId": 49,
+              "distance": 156
+            },
+            {
+              "starId": 3,
+              "distance": 223
+            }
+          ],
+          "radius": 0.4,
+          "timeToEat": 5,
+          "amountOfEnergy": 1,
+          "coordenates": {
+            "x": 212.0,
+            "y": 98.0
+          },
+          "hypergiant": false,
+          "healthImpact": 0.04,
+          "lifespanImpact": 9
+        },
+        {
+          "id": 3,
+          "label": "Almach",
+          "linkedTo": [
+            {
+              "starId": 50,
+              "distance": 223
+            }
+          ],
+          "radius": 0.4,
+          "timeToEat": 5,
+          "amountOfEnergy": 1,
+          "coordenates": {
+            "x": 21.4,
+            "y": 32.8
+          },
+          "hypergiant": false,
+          "healthImpact": 0.03,
+          "lifespanImpact": 8
+        }
+      ]
+    }
+  ],
+  "burroenergiaInicial": 1000,
+  "estadoSalud": "Excellent",
+  "pasto": 500,
+  "number": 42,
+  "startAge": 8,
+  "deathAge": 5000
+}

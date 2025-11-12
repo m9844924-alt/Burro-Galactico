@@ -24,8 +24,8 @@
           "timeToEat": 3,
           "amountOfEnergy": 1,
           "coordenates": {
-            "x": 25,
-            "y": 34
+            "x": 10.0,
+            "y": 28.3
           },
           "hypergiant": false
         },
@@ -50,8 +50,8 @@
           "timeToEat": 2,
           "amountOfEnergy": 2,
           "coordenates": {
-            "x": 37,
-            "y": 15
+            "x": 25.6,
+            "y": 10.0
           },
           "hypergiant": false
         },
@@ -76,8 +76,8 @@
           "timeToEat": 1,
           "amountOfEnergy": 3,
           "coordenates": {
-            "x": 75,
-            "y": 43
+            "x": 75.0,
+            "y": 37.0
           },
           "hypergiant": true
         }
@@ -107,8 +107,8 @@
           "timeToEat": 3,
           "amountOfEnergy": 1,
           "coordenates": {
-            "x": 123,
-            "y": 167
+            "x": 137.5,
+            "y": 156.7
           },
           "hypergiant": false
         },
@@ -129,8 +129,8 @@
           "timeToEat": 3,
           "amountOfEnergy": 5,
           "coordenates": {
-            "x": 189,
-            "y": 146
+            "x": 223.3,
+            "y": 136.4
           },
           "hypergiant": true
         },
@@ -147,8 +147,8 @@
           "timeToEat": 1,
           "amountOfEnergy": 3,
           "coordenates": {
-            "x": 75,
-            "y": 43
+            "x": 75.0,
+            "y": 37.0
           },
           "hypergiant": true
         }

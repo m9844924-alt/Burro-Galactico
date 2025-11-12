@@ -1,0 +1,35 @@
+==================================================
+GALACTIC DONKEY - JOURNEY REPORT
+==================================================
+
+FINAL STATE:
+------------------------------
+health: Dying
+energy: 7.5
+grass_remaining: 998.0
+final_age: 8.0
+is_alive: True
+
+STATISTICS:
+------------------------------
+total_stars: 1
+total_constellations: 1
+grass_consumed: 1.0
+research_time: 2.0
+distance_traveled: 0.0
+
+VISITED STARS:
+------------------------------
+36
+
+CONSTELLATIONS:
+------------------------------
+Ursa Major Circuit
+
+CONSUMPTION PER STAR:
+------------------------------
+Star 36: 1.00 kg
+
+RESEARCH TIME PER STAR:
+------------------------------
+Star 36: 2.00 hours

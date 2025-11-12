@@ -1,42 +1,52 @@
-import pygame
-import sys
+"""
+Galactic Donkey - Main Application Entry Point
+"""
 
-from ui.main_view import MainView
+import sys
+from pathlib import Path
+
+project_root = Path(__file__).resolve().parent
+sys.path.insert(0, str(project_root))
+
+import pygame
+
+from src.config import display
+from src.presentation.views.main_view import MainView
 
 
 def main():
-    """Main entry point for Burro Galáctico"""
+    """Main application entry point"""
+
     pygame.init()
-    
-    # Set up display
-    screen = pygame.display.set_mode((1280, 720))
-    pygame.display.set_caption("Burro Galáctico - Sistema de Navegación Estelar")
-    
+    pygame.font.init()
+
+    screen = pygame.display.set_mode((display.WINDOW_WIDTH, display.WINDOW_HEIGHT))
+    pygame.display.set_caption(display.TITLE)
+
     clock = pygame.time.Clock()
-    
-    # Create main view
+
     main_view = MainView(screen)
-    
-    # Main game loop
-    while True:
-        # Get events
+
+    running = True
+    while running:
+
         events = pygame.event.get()
-        
-        # Check for quit
         for event in events:
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit(0)
-        
-        # Update and draw
+                running = False
+
         main_view.handle_events(events)
         main_view.update()
+
         main_view.draw(screen)
-        
-        # Update display
+
         pygame.display.flip()
-        clock.tick(60)
+        clock.tick(display.FPS)
+
+    pygame.quit()
+    sys.exit(0)
 
 
 if __name__ == "__main__":
     main()
+
