@@ -305,10 +305,10 @@ class RouteCalculationService:
         self, donkey: Donkey, origin_star_id: int
     ) -> Tuple[List[int], Dict[str, Any]]:
         """
-        Dijkstra adaptado:
-        - parte de un solo origen
-        - calcula distancias mínimas
-        - reconstruye cada camino arista por arista para que la vista lo pueda pintar
+        Dijkstra-based greedy exploration:
+        - Starts from origin
+        - Repeatedly visits the nearest unvisited reachable neighbor
+        - Uses actual travel simulation to respect donkey constraints
         """
         if origin_star_id not in self.all_stars:
             return [], {"error": "origin not found"}
@@ -316,81 +316,97 @@ class RouteCalculationService:
         sim_donkey = copy.deepcopy(donkey)
         sim_donkey.current_position = origin_star_id
 
-        import math
-        from heapq import heappush, heappop
-
-        # 1) dijkstra clásico
-        dist: Dict[int, float] = {sid: math.inf for sid in self.all_stars}
-        prev: Dict[int, Optional[int]] = {sid: None for sid in self.all_stars}
-        dist[origin_star_id] = 0.0
-
-        pq: List[Tuple[float, int]] = [(0.0, origin_star_id)]
-
-        while pq:
-            current_dist, u = heappop(pq)
-            if current_dist > dist[u]:
-                continue
-
-            _, constellation = self.all_stars[u]
-
-            for v, w in constellation.get_neighbors(u):
-                if (
-                    v not in self.all_stars
-                    or sim_donkey.is_path_blocked(u, v)
-                    or constellation.is_edge_blocked(u, v)
-                ):
-                    continue
-
-                new_dist = current_dist + w
-                if new_dist < dist[v]:
-                    dist[v] = new_dist
-                    prev[v] = u
-                    heappush(pq, (new_dist, v))
-
-        # 2) ordenar los alcanzables por distancia
-        reachable = [n for n, d in dist.items() if d < math.inf]
-        reachable.sort(key=lambda n: dist[n])
-
         route: List[int] = [origin_star_id]
+        visited: Set[int] = {origin_star_id}
+        
         simulation_data: Dict[str, Any] = {
             "events": [],
             "energy_history": [sim_donkey.energy],
             "grass_history": [sim_donkey.grass_inventory],
         }
 
-        # procesar origen
+        # Procesar origen
         self._process_star_visit(sim_donkey, origin_star_id, simulation_data)
 
-        for target in reachable[1:]:
-            if not sim_donkey.is_alive:
+        # Exploración greedy: siempre visitar el vecino no visitado más cercano
+        while sim_donkey.is_alive:
+            current_id = sim_donkey.current_position
+            if not current_id:
                 break
 
-            # reconstruir camino origen -> target
-            path_back: List[int] = []
-            cur = target
-            while cur is not None:
-                path_back.append(cur)
-                if cur == origin_star_id:
-                    break
-                cur = prev[cur]
+            # Ejecutar Dijkstra desde la posición actual
+            dist: Dict[int, float] = {sid: math.inf for sid in self.all_stars}
+            prev: Dict[int, Optional[int]] = {sid: None for sid in self.all_stars}
+            dist[current_id] = 0.0
 
-            if path_back[-1] != origin_star_id:
-                continue  # no hay camino completo
+            pq: List[Tuple[float, int]] = [(0.0, current_id)]
+
+            while pq:
+                current_dist, u = heappop(pq)
+                if current_dist > dist[u]:
+                    continue
+
+                _, constellation = self.all_stars[u]
+
+                for v, w in constellation.get_neighbors(u):
+                    if (
+                        v not in self.all_stars
+                        or sim_donkey.is_path_blocked(u, v)
+                        or constellation.is_edge_blocked(u, v)
+                    ):
+                        continue
+
+                    new_dist = current_dist + w
+                    if new_dist < dist[v]:
+                        dist[v] = new_dist
+                        prev[v] = u
+                        heappush(pq, (new_dist, v))
+
+            # Encontrar el nodo no visitado más cercano
+            best_target = None
+            best_distance = math.inf
+
+            for node_id, distance in dist.items():
+                if node_id not in visited and distance < best_distance and distance < math.inf:
+                    # Verificar que el burro pueda llegar
+                    if sim_donkey.remaining_lifespan > distance:
+                        best_target = node_id
+                        best_distance = distance
+
+            if best_target is None:
+                # No hay más nodos alcanzables
+                break
+
+            # Reconstruir el camino desde current_id hasta best_target
+            path_back: List[int] = []
+            cur = best_target
+            while cur is not None and cur != current_id:
+                path_back.append(cur)
+                cur = prev[cur]
+            
+            if cur != current_id:
+                # No hay camino válido
+                break
 
             path_forward = list(reversed(path_back))
 
-            # solo pegamos si continúa justo donde vamos
-            if path_forward[0] != route[-1]:
-                continue
-
-            # recorrer arista por arista
-            for i in range(len(path_forward) - 1):
-                a = path_forward[i]
-                b = path_forward[i + 1]
+            # Recorrer el camino arista por arista
+            success = True
+            for i in range(len(path_forward)):
+                if i == 0:
+                    # Primera arista: desde current_id a path_forward[0]
+                    a = current_id
+                    b = path_forward[0]
+                else:
+                    # Aristas subsiguientes
+                    a = path_forward[i - 1]
+                    b = path_forward[i]
 
                 _, const_a = self.all_stars[a]
                 neighbors = dict(const_a.get_neighbors(a))
+                
                 if b not in neighbors:
+                    success = False
                     break
 
                 distance = neighbors[b]
@@ -403,6 +419,7 @@ class RouteCalculationService:
                             "location": a,
                         }
                     )
+                    success = False
                     break
 
                 simulation_data["events"].append(
@@ -415,19 +432,18 @@ class RouteCalculationService:
                     }
                 )
 
-                if b not in route:
+                if b not in visited:
                     route.append(b)
+                    visited.add(b)
 
                 sim_donkey.current_position = b
                 self._process_star_visit(sim_donkey, b, simulation_data)
                 simulation_data["energy_history"].append(sim_donkey.energy)
-                simulation_data["grass_history"].append(
-                    sim_donkey.grass_inventory)
+                simulation_data["grass_history"].append(sim_donkey.grass_inventory)
 
-            if not sim_donkey.is_alive:
+            if not success or not sim_donkey.is_alive:
                 break
 
         simulation_data["total_nodes_visited"] = len(route)
-        simulation_data["reachable_nodes_by_dijkstra"] = len(reachable)
 
         return route, simulation_data

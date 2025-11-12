@@ -100,7 +100,7 @@ class ColorScheme:
     STAR_GLOW: Tuple[int, int, int] = (255, 255, 255)
     STAR_HOVER: Tuple[int, int, int] = (255, 255, 150)
     PATH_NORMAL: Tuple[int, int, int] = (80, 90, 140)
-    PATH_BLOCKED: Tuple[int, int, int] = (220, 60, 60)
+    PATH_BLOCKED: Tuple[int, int, int] = (255, 0, 0)
     PATH_ACTIVE: Tuple[int, int, int] = (100, 220, 255)
     PATH_PLANNED: Tuple[int, int, int] = (150, 255, 150)
 

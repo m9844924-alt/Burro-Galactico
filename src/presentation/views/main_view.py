@@ -71,6 +71,12 @@ class MainView:
         self.second_star_for_block = None
         # Campos de edición de propiedades
         self.edit_inputs: Dict[str, Any] = {}
+        # Estado del panel de edición
+        self.show_edit_panel = False
+        self.edit_panel_alpha = 0.0  # Para animación fade-in
+        self.edit_star_data: Optional[Dict[str, Any]] = None
+        self.edit_panel_cancel_rect = pygame.Rect(0, 0, 0, 0)
+        self.edit_panel_apply_rect = pygame.Rect(0, 0, 0, 0)
 
     def _load_image(
         self, image_path, size: Optional[Tuple[int, int]] = None
@@ -170,53 +176,11 @@ class MainView:
 
         self.label_status = Label(panel_x, y, "Ready", colors.SUCCESS)
 
-        # =======================================================
-        # 🔹 Campos para editar propiedades de una estrella
-        # =======================================================
-        label_w, input_w, input_h = 120, 80, 25
-        label_x = panel_x
-        input_x = label_x + label_w + 5
-
-        self.label_edit_section = Label(
-            panel_x, y, "Star Editor", colors.BG_PANEL)
-        y += btn_h + spacing
-
-        self.label_time = Label(label_x, y, label_w, input_h, "Time to Eat:")
-        self.input_time = InputBox(input_x, y, input_w, input_h)
-        y += input_h + spacing
-
-        self.label_energy = Label(
-            label_x, y, label_w, input_h, "Energy Amount:")
-        self.input_energy = InputBox(input_x, y, input_w, input_h)
-        y += input_h + spacing
-
-        self.label_health = Label(
-            label_x, y, label_w, input_h, "Health Impact:")
-        self.input_health = InputBox(input_x, y, input_w, input_h)
-        y += input_h + spacing
-
-        self.label_lifespan = Label(
-            label_x, y, label_w, input_h, "Lifespan Impact:")
-        self.input_lifespan = InputBox(input_x, y, input_w, input_h)
-        y += input_h + spacing
-
-        self.btn_apply_star = Button(
-            panel_x,
-            y,
-            ui.BUTTON_WIDTH,
-            btn_h,
-            "Apply Star Edit",
-            self._apply_star_edit,
-        )
-        self.btn_apply_star.enabled = False
-        y += btn_h + spacing
-
-        self.edit_inputs = {
-            "time_to_eat": self.input_time,
-            "energy_amount": self.input_energy,
-            "health_impact": self.input_health,
-            "lifespan_impact": self.input_lifespan,
-        }
+        # Editor de estrellas (inputs temporales, no se agregan a widgets)
+        self.input_time = InputBox(0, 0, 150, 30)
+        self.input_energy = InputBox(0, 0, 150, 30)
+        self.input_health = InputBox(0, 0, 150, 30)
+        self.input_lifespan = InputBox(0, 0, 150, 30)
 
         self.widgets = [
             self.btn_load,
@@ -233,11 +197,36 @@ class MainView:
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_l:
-
                     self._load_json_file()
                 elif event.key == pygame.K_ESCAPE:
+                    if self.show_edit_panel:
+                        # Cerrar panel de edición
+                        self.show_edit_panel = False
+                    else:
+                        # Cerrar reporte
+                        self.show_report = False
+                elif event.key == pygame.K_RETURN and self.show_edit_panel:
+                    # Aplicar cambios con Enter
+                    self._apply_star_edit()
 
-                    self.show_report = False
+            # Si el panel de edición está abierto, solo procesar eventos de inputs
+            if self.show_edit_panel:
+                # Procesar eventos de los inputs
+                self.input_time.handle_event(event)
+                self.input_energy.handle_event(event)
+                self.input_health.handle_event(event)
+                self.input_lifespan.handle_event(event)
+                
+                # Detectar clicks en botones del panel
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    mouse_pos = event.pos
+                    if hasattr(self, 'edit_panel_cancel_rect') and self.edit_panel_cancel_rect.collidepoint(mouse_pos):
+                        self.show_edit_panel = False
+                        self.status_message = "Edit cancelled"
+                        self.status_color = colors.INFO
+                    elif hasattr(self, 'edit_panel_apply_rect') and self.edit_panel_apply_rect.collidepoint(mouse_pos):
+                        self._apply_star_edit()
+                continue  # No procesar otros eventos cuando el panel está abierto
 
             if event.type == pygame.MOUSEWHEEL:
                 old_zoom = self.zoom_scale
@@ -277,27 +266,24 @@ class MainView:
                 # =======================================================
                 # 🔹 Detectar clic sobre estrellas para edición o bloqueo
                 # =======================================================
-                mouse_pos = pygame.mouse.get_pos()
-                for constellation in self.constellations:
-                    star_id = constellation.get_star_at_position(mouse_pos)
-                    if star_id:
-                        keys = pygame.key.get_pressed()
-                        if keys[pygame.K_LCTRL] or keys[pygame.K_RCTRL]:
-                            # CTRL + clic → selección para bloqueo
-                            if self.first_star_for_block is None:
-                                self.first_star_for_block = star_id
-                                self.status_message = f"Select second star to block from {star_id}"
-                                self.status_color = colors.INFO
-                            else:
-                                self.second_star_for_block = star_id
-                                self._toggle_edge(
-                                    self.first_star_for_block, self.second_star_for_block)
-                                self.first_star_for_block = None
-                                self.second_star_for_block = None
+                # Solo procesar si se hizo clic izquierdo y hay una estrella bajo el cursor
+                if event.button == 1 and self.file_loaded and self.hover_star:
+                    keys = pygame.key.get_pressed()
+                    if keys[pygame.K_LCTRL] or keys[pygame.K_RCTRL]:
+                        # CTRL + clic → selección para bloqueo de arista
+                        if self.first_star_for_block is None:
+                            self.first_star_for_block = self.hover_star.id
+                            self.status_message = f"Select second star to block edge from {self.hover_star.id}"
+                            self.status_color = colors.INFO
                         else:
-                            # Clic normal → editar estrella
-                            self._on_star_click(star_id)
-                        break
+                            self.second_star_for_block = self.hover_star.id
+                            self._toggle_edge(
+                                self.first_star_for_block, self.second_star_for_block)
+                            self.first_star_for_block = None
+                            self.second_star_for_block = None
+                    elif keys[pygame.K_LSHIFT] or keys[pygame.K_RSHIFT]:
+                        # SHIFT + clic → editar propiedades de la estrella
+                        self._on_star_click(self.hover_star.id)
 
             if event.type == pygame.MOUSEBUTTONUP and event.button == 3:
                 self._is_panning = False
@@ -320,6 +306,12 @@ class MainView:
 
     def update(self) -> None:
         """Update application state"""
+        # Animar el panel de edición
+        if self.show_edit_panel and self.edit_panel_alpha < 1.0:
+            self.edit_panel_alpha = min(1.0, self.edit_panel_alpha + 0.1)
+        elif not self.show_edit_panel and self.edit_panel_alpha > 0.0:
+            self.edit_panel_alpha = max(0.0, self.edit_panel_alpha - 0.15)
+        
         if self.is_animating and self.donkey:
 
             self.animation_progress += animations.TRAVEL_SPEED
@@ -384,8 +376,12 @@ class MainView:
 
             self._draw_map(screen)
             self._draw_ui_panel(screen)
+            
+            # Dibujar panel de edición si está activo
+            if self.edit_panel_alpha > 0.0:
+                self._draw_edit_panel(screen)
 
-        hint_text = f"{self.status_message}  •  Wheel: Zoom  •  Right-drag: Pan  •  Click star: Set origin  •  Middle: Reset"
+        hint_text = f"{self.status_message}  •  Wheel: Zoom  •  Right-drag: Pan  •  Click: Origin  •  Shift+Click: Edit  •  Ctrl+Click: Block edge"
         hint_surface = self.font_small.render(
             hint_text, True, self.status_color)
         screen.blit(
@@ -569,49 +565,74 @@ class MainView:
             x1, y1 = self._star_to_screen(
                 star.coordinates.x, star.coordinates.y)
 
-            for neighbor_id, _ in constellation.get_neighbors(star.id):
-                neighbor_star = constellation.get_star(neighbor_id)
-                if neighbor_star:
-                    x2, y2 = self._star_to_screen(
-                        neighbor_star.coordinates.x, neighbor_star.coordinates.y
-                    )
-
-                    is_blocked = constellation.is_edge_blocked(
-                        star.id, neighbor_id
-                    ) or (
-                        self.donkey
-                        and self.donkey.is_path_blocked(star.id, neighbor_id)
-                    )
-
-                    is_active = self._is_path_in_route(star.id, neighbor_id)
-
-                    if is_blocked:
-                        path_color = colors.PATH_BLOCKED
-                        width = 3
-
-                        self._draw_dashed_line(
-                            screen, path_color, (x1, y1), (x2, y2), width, 10
-                        )
-                    elif is_active:
-
-                        path_color = colors.PATH_ACTIVE
-                        width = 4
-
-                        glow_color = tuple(min(255, c + 50)
-                                           for c in path_color)
-                        pygame.draw.line(
-                            screen, (*glow_color, 100), (x1,
-                                                         y1), (x2, y2), width + 4
+            # Acceder directamente a _edges para obtener TODOS los vecinos (bloqueados o no)
+            if star.id in constellation._edges:
+                for neighbor_id, _ in constellation._edges[star.id].items():
+                    neighbor_star = constellation.get_star(neighbor_id)
+                    if neighbor_star:
+                        x2, y2 = self._star_to_screen(
+                            neighbor_star.coordinates.x, neighbor_star.coordinates.y
                         )
 
-                        pygame.draw.line(screen, path_color,
-                                         (x1, y1), (x2, y2), width)
-                    else:
+                        is_blocked = constellation.is_edge_blocked(
+                            star.id, neighbor_id
+                        ) or (
+                            self.donkey
+                            and self.donkey.is_path_blocked(star.id, neighbor_id)
+                        )
 
-                        path_color = tuple(int(c * 0.7) for c in const_color)
-                        width = 2
-                        pygame.draw.line(screen, path_color,
-                                         (x1, y1), (x2, y2), width)
+                        is_active = self._is_path_in_route(star.id, neighbor_id)
+
+                        if is_blocked:
+                            path_color = colors.PATH_BLOCKED
+                            width = 3
+
+                            # Dibujar línea bloqueada en rojo
+                            self._draw_dashed_line(
+                                screen, path_color, (x1, y1), (x2, y2), width, 10
+                            )
+                            
+                            # Dibujar X roja en el centro de la arista bloqueada
+                            mid_x = (x1 + x2) // 2
+                            mid_y = (y1 + y2) // 2
+                            x_size = 8
+                            
+                            # Primera diagonal de la X
+                            pygame.draw.line(
+                                screen, 
+                                colors.PATH_BLOCKED, 
+                                (mid_x - x_size, mid_y - x_size), 
+                                (mid_x + x_size, mid_y + x_size), 
+                                3
+                            )
+                            # Segunda diagonal de la X
+                            pygame.draw.line(
+                                screen, 
+                                colors.PATH_BLOCKED, 
+                                (mid_x - x_size, mid_y + x_size), 
+                                (mid_x + x_size, mid_y - x_size), 
+                                3
+                            )
+                        elif is_active:
+                            # Arista activa (parte de la ruta)
+                            path_color = colors.PATH_ACTIVE
+                            width = 4
+
+                            glow_color = tuple(min(255, c + 50)
+                                               for c in path_color)
+                            pygame.draw.line(
+                                screen, (*glow_color, 100), (x1,
+                                                             y1), (x2, y2), width + 4
+                            )
+
+                            pygame.draw.line(screen, path_color,
+                                             (x1, y1), (x2, y2), width)
+                        else:
+                            # Arista normal
+                            path_color = tuple(int(c * 0.7) for c in const_color)
+                            width = 2
+                            pygame.draw.line(screen, path_color,
+                                             (x1, y1), (x2, y2), width)
 
         for star in constellation.get_all_stars():
             self._draw_star(screen, star, const_color)
@@ -911,6 +932,132 @@ class MainView:
                 colors.INFO,
             )
             info_label.draw(screen, self.font_small)
+
+    def _draw_edit_panel(self, screen: pygame.Surface) -> None:
+        """Draw elegant floating edit panel for star properties"""
+        if not self.edit_star_data or self.edit_panel_alpha <= 0.0:
+            return
+
+        # Panel dimensions
+        panel_width = 400
+        panel_height = 350
+        panel_x = (self.width - panel_width) // 2
+        panel_y = (self.height - panel_height) // 2
+
+        # Semi-transparent overlay
+        overlay = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+        overlay_alpha = int(100 * self.edit_panel_alpha)
+        overlay.fill((*colors.BG_DARK, overlay_alpha))
+        screen.blit(overlay, (0, 0))
+
+        # Main panel with shadow
+        shadow_offset = 8
+        shadow_surf = pygame.Surface((panel_width, panel_height), pygame.SRCALPHA)
+        pygame.draw.rect(
+            shadow_surf,
+            (0, 0, 0, int(80 * self.edit_panel_alpha)),
+            shadow_surf.get_rect(),
+            border_radius=12
+        )
+        screen.blit(shadow_surf, (panel_x + shadow_offset, panel_y + shadow_offset))
+
+        # Main panel
+        panel_surf = pygame.Surface((panel_width, panel_height), pygame.SRCALPHA)
+        panel_alpha = int(245 * self.edit_panel_alpha)
+        pygame.draw.rect(
+            panel_surf,
+            (*colors.BG_PANEL, panel_alpha),
+            panel_surf.get_rect(),
+            border_radius=12
+        )
+        pygame.draw.rect(
+            panel_surf,
+            colors.INFO,
+            panel_surf.get_rect(),
+            3,
+            border_radius=12
+        )
+        screen.blit(panel_surf, (panel_x, panel_y))
+
+        # Only render text if fully or mostly visible
+        if self.edit_panel_alpha < 0.3:
+            return
+
+        # Title
+        title_text = f"✦ Edit Star {self.edit_star_data['id']} ✦"
+        title = self.font_normal.render(title_text, True, colors.TEXT_HIGHLIGHT)
+        title_rect = title.get_rect(center=(panel_x + panel_width // 2, panel_y + 30))
+        screen.blit(title, title_rect)
+
+        # Subtitle with constellation
+        subtitle_text = f"{self.edit_star_data['label']} • {self.edit_star_data['constellation']}"
+        subtitle = self.font_small.render(subtitle_text, True, colors.TEXT_SECONDARY)
+        subtitle_rect = subtitle.get_rect(center=(panel_x + panel_width // 2, panel_y + 55))
+        screen.blit(subtitle, subtitle_rect)
+
+        # Separator line
+        pygame.draw.line(
+            screen,
+            colors.GRID_MAJOR,
+            (panel_x + 20, panel_y + 70),
+            (panel_x + panel_width - 20, panel_y + 70),
+            2
+        )
+
+        # Input fields
+        y_offset = panel_y + 90
+        field_spacing = 50
+        label_x = panel_x + 40
+        input_x = panel_x + 200
+
+        fields = [
+            ("Time to Eat (h/kg):", self.input_time),
+            ("Energy Amount:", self.input_energy),
+            ("Health Impact:", self.input_health),
+            ("Lifespan Impact (ly):", self.input_lifespan),
+        ]
+
+        for label_text, input_box in fields:
+            # Label
+            label = self.font_small.render(label_text, True, colors.TEXT_PRIMARY)
+            screen.blit(label, (label_x, y_offset + 5))
+
+            # Input box - Actualizar posición y rectángulo
+            input_box.rect.x = input_x
+            input_box.rect.y = y_offset
+            input_box.rect.width = 150
+            input_box.rect.height = 30
+            input_box.draw(screen, self.font_small)
+
+            y_offset += field_spacing
+
+        # Buttons
+        btn_width = 120
+        btn_height = 35
+        btn_spacing = 20
+        btn_y = panel_y + panel_height - 60
+
+        # Cancel button
+        cancel_x = panel_x + (panel_width - btn_width * 2 - btn_spacing) // 2
+        cancel_rect = pygame.Rect(cancel_x, btn_y, btn_width, btn_height)
+        pygame.draw.rect(screen, colors.ERROR, cancel_rect, border_radius=8)
+        pygame.draw.rect(screen, colors.WHITE, cancel_rect, 2, border_radius=8)
+        cancel_text = self.font_small.render("Cancel (ESC)", True, colors.WHITE)
+        cancel_text_rect = cancel_text.get_rect(center=cancel_rect.center)
+        screen.blit(cancel_text, cancel_text_rect)
+
+        # Apply button
+        apply_x = cancel_x + btn_width + btn_spacing
+        apply_rect = pygame.Rect(apply_x, btn_y, btn_width, btn_height)
+        pygame.draw.rect(screen, colors.SUCCESS, apply_rect, border_radius=8)
+        pygame.draw.rect(screen, colors.WHITE, apply_rect, 2, border_radius=8)
+        apply_text = self.font_small.render("Apply (Enter)", True, colors.WHITE)
+        apply_text_rect = apply_text.get_rect(center=apply_rect.center)
+        screen.blit(apply_text, apply_text_rect)
+
+        # Store button rects for click detection
+        self.edit_panel_cancel_rect = cancel_rect
+        self.edit_panel_apply_rect = apply_rect
 
     def _draw_report(self, screen: pygame.Surface) -> None:
         """Draw the journey report screen"""
@@ -1364,29 +1511,51 @@ class MainView:
 
 
     def _on_star_click(self, star_id: int) -> None:
-
+        """Open elegant edit panel for the selected star"""
         if not self.constellations:
             return
 
         self.selected_star_for_edit = star_id
         star = None
+        constellation_name = ""
+        
         for constellation in self.constellations:
             s = constellation.get_star(star_id)
             if s:
                 star = s
+                constellation_name = constellation.name
                 break
 
         if star:
+            # Preparar datos para el panel
+            self.edit_star_data = {
+                'id': star.id,
+                'label': star.label,
+                'constellation': constellation_name
+            }
+            
+            # Llenar inputs con valores actuales
             self.input_time.text = str(round(star.time_to_eat, 2))
             self.input_energy.text = str(round(star.energy_amount, 2))
             self.input_health.text = str(round(star.health_impact, 2))
             self.input_lifespan.text = str(round(star.lifespan_impact, 2))
-            self.btn_apply_star.enabled = True
-            self.status_message = f"Editing star {star.id} ({constellation.name})"
-            self.status_color = colors.SUCCESS
+            
+            # Desactivar todos los inputs primero
+            self.input_time.is_focused = False
+            self.input_energy.is_focused = False
+            self.input_health.is_focused = False
+            self.input_lifespan.is_focused = False
+            
+            # Activar el input del primer campo
+            self.input_time.is_focused = True
+            
+            # Mostrar panel
+            self.show_edit_panel = True
+            self.status_message = f"Editing star {star.id}"
+            self.status_color = colors.INFO
 
     def _apply_star_edit(self) -> None:
-
+        """Apply changes to the selected star"""
         if self.selected_star_for_edit is None:
             self.status_message = "No star selected."
             self.status_color = colors.WARNING
@@ -1400,25 +1569,33 @@ class MainView:
                     s.energy_amount = float(self.input_energy.text)
                     s.health_impact = float(self.input_health.text)
                     s.lifespan_impact = float(self.input_lifespan.text)
-                    self.status_message = f"Star {s.id} updated!"
+                    
+                    # Cerrar panel y mostrar éxito
+                    self.show_edit_panel = False
+                    self.status_message = f"✓ Star {s.id} updated successfully!"
                     self.status_color = colors.SUCCESS
-                    self.btn_apply_star.enabled = False
+                    
+                    # Reproducir sonido de éxito
+                    self.audio_manager.play(SoundEffect.SUCCESS)
                 except ValueError:
                     self.status_message = "Invalid numeric input"
                     self.status_color = colors.ERROR
                 break
 
     def _toggle_edge(self, star_a_id: int, star_b_id: int) -> None:
-
+        """Toggle blocking state of an edge between two stars."""
         for constellation in self.constellations:
             if constellation.get_star(star_a_id) and constellation.get_star(star_b_id):
-                is_blocked = constellation.is_edge_blocked(
-                    star_a_id, star_b_id)
-                constellation.set_edge_blocked(
-                    star_a_id, star_b_id, not is_blocked)
-                msg = "blocked" if not is_blocked else "unblocked"
+                is_blocked = constellation.is_edge_blocked(star_a_id, star_b_id)
+                if is_blocked:
+                    constellation.unblock_edge(star_a_id, star_b_id)
+                    msg = "unblocked"
+                else:
+                    constellation.block_edge(star_a_id, star_b_id)
+                    msg = "blocked"
                 self.status_message = f"Edge {star_a_id} ↔ {star_b_id} {msg}"
                 self.status_color = colors.SUCCESS
+                return
 
     def _start_journey(self) -> None:
         """Start the animated journey"""
